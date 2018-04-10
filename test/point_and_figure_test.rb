@@ -21,7 +21,7 @@ class PointAndFigureTest < Minitest::Test
     input_data = {
       base_point: 0.1,
       base_turn: 3,
-      data_set: [100, 100.2]
+      data_set: [100, 100.21]
     }
     output_data = PointAndFigure.generate input_data
     assert_equal [[1, 100, 100.1], [1, 100.1, 100.2]], output_data[:data_set]
@@ -31,7 +31,7 @@ class PointAndFigureTest < Minitest::Test
     input_data = {
       base_point: 0.1,
       base_turn: 3,
-      data_set: [100.2, 100]
+      data_set: [100.2, 99.99]
     }
     output_data = PointAndFigure.generate input_data
     assert_equal [[1, 100.2, 100.1], [1, 100.1, 100]], output_data[:data_set]
@@ -61,7 +61,7 @@ class PointAndFigureTest < Minitest::Test
     input_data = {
       base_point: 0.1,
       base_turn: 3,
-      data_set: [100.3, 100.4, 100.1]
+      data_set: [100.31, 100.49, 100.09]
     }
     output_data = PointAndFigure.generate input_data
     assert_equal [[1, 100.3, 100.4]], output_data[:data_set]
@@ -71,7 +71,7 @@ class PointAndFigureTest < Minitest::Test
     input_data = {
       base_point: 0.1,
       base_turn: 3,
-      data_set: [100.1, 100, 100.3]
+      data_set: [100.09, 99.99, 100.39]
     }
     output_data = PointAndFigure.generate input_data
     assert_equal [[1, 100.1, 100]], output_data[:data_set]

@@ -14,41 +14,57 @@ module PointAndFigure
       prev_value = data_set[0]
       current_trend = nil
       current_line = nil
+      current_max = data_set[0]
+      current_min = data_set[0]
       data_set.each.with_index(1) do |value, i|
         next if i == 1
-        diff = (value - prev_value).round(1) # FIXME
-        if diff.abs < base_point
-          prev_value = value
-          next
-        end
-        if current_trend.nil?
-          current_trend = :up if diff >= base_point
-          current_trend = :down if diff.abs >= base_point && diff < 0
-        end
         current_line ||= 1
-        if current_trend == :up
-          if diff.abs < base_point
-            prev_value = value
-            next
-          end
+        if current_trend.nil?
+          diff = (value - prev_value).round(2) # FIXME
           if diff >= base_point
+            current_trend = :up
             output_data = up_data(base_point, value, prev_value, current_line, output_data)
-          elsif (diff.abs / base_point).round > base_turn
-            current_line += 1
-            output_data = down_data(base_point, value, prev_value, current_line, output_data, trend_changed: true)
-            current_trend = :down
-          end
-        elsif current_trend == :down
-          if diff.abs < base_point
             prev_value = value
+            current_max = value
             next
           end
           if diff.abs >= base_point && diff < 0
+            current_trend = :down 
             output_data = down_data(base_point, value, prev_value, current_line, output_data)
-          elsif (diff / base_point).round > base_turn
+            prev_value = value
+            current_min = value
+            next
+          end
+        end
+        if current_trend == :up
+          diff_max = value - current_max
+          if diff_max.abs < base_point
+            prev_value = value
+            next
+          end
+          if diff_max >= base_point
+            output_data = up_data(base_point, value, prev_value, current_line, output_data)
+            current_max = value
+          elsif (diff_max.abs / base_point).round > base_turn
             current_line += 1
-            output_data = up_data(base_point, value, prev_value, current_line, output_data, trend_changed: true)
+            output_data = down_data(base_point, value, current_max, current_line, output_data, trend_changed: true)
+            current_trend = :down
+            current_min = value
+          end
+        elsif current_trend == :down
+          diff_min = current_min - value
+          if diff_min.abs < base_point
+            prev_value = value
+            next
+          end
+          if diff_min >= base_point
+            output_data = down_data(base_point, value, prev_value, current_line, output_data)
+            current_min = value
+          elsif (diff_min.abs / base_point).round > base_turn
+            current_line += 1
+            output_data = up_data(base_point, value, current_min, current_line, output_data, trend_changed: true)
             current_trend = :up
+            current_max = value
           end
         end
         prev_value = value

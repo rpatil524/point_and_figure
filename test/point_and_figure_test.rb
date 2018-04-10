@@ -76,4 +76,24 @@ class PointAndFigureTest < Minitest::Test
     output_data = PointAndFigure.generate input_data
     assert_equal [[1, 100.1, 100]], output_data[:data_set]
   end
+
+  def test_it_turn_down_line_when_trend_changes_after_many_days
+    input_data = {
+      base_point: 0.1,
+      base_turn: 3,
+      data_set: [100.3, 100.4, 100.1, 100]
+    }
+    output_data = PointAndFigure.generate input_data
+    assert_equal [[1, 100.3, 100.4], [2, 100.3, 100.2], [2, 100.2, 100.1], [2, 100.1, 100]], output_data[:data_set]
+  end
+
+  def test_it_turn_up_line_when_trend_changes_after_many_days
+    input_data = {
+      base_point: 0.1,
+      base_turn: 3,
+      data_set: [100.1, 100, 100.1, 100.4]
+    }
+    output_data = PointAndFigure.generate input_data
+    assert_equal [[1, 100.1, 100], [2, 100.1, 100.2], [2, 100.2, 100.3], [2, 100.3, 100.4]], output_data[:data_set]
+  end
 end

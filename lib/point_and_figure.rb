@@ -1,5 +1,21 @@
-require "point_and_figure/version"
+require 'point_and_figure/version'
+require 'point_and_figure/output_data_generator'
+require 'point_and_figure/point_generator'
 
 module PointAndFigure
-  # Your code goes here...
+  class << self
+    def generate(input_data)
+      # TODO: error handle
+      base_point = input_data[:base_point]
+      base_turn = input_data[:base_turn]
+      data_set = input_data[:data_set]
+
+      generator = PointAndFigure::OutputDataGenerator.new base_point, base_turn, data_set
+      generator.generate
+    end
+
+    def calc_round_unit(base_point)
+      (1 / base_point).to_i.to_s.size - 1
+    end
+  end
 end

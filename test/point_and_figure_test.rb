@@ -21,7 +21,7 @@ class PointAndFigureTest < Minitest::Test
     input_data = {
       base_point: 0.1,
       base_turn: 3,
-      data_set: [100, 100.21]
+      data_set: [100, 100.29]
     }
     output_data = PointAndFigure.generate input_data
     assert_equal [[1, 100, 100.1], [1, 100.1, 100.2]], output_data[:data_set]
@@ -31,7 +31,7 @@ class PointAndFigureTest < Minitest::Test
     input_data = {
       base_point: 0.1,
       base_turn: 3,
-      data_set: [100.2, 99.99]
+      data_set: [100.11, 99.99]
     }
     output_data = PointAndFigure.generate input_data
     assert_equal [[1, 100.2, 100.1], [1, 100.1, 100]], output_data[:data_set]
@@ -41,7 +41,7 @@ class PointAndFigureTest < Minitest::Test
     input_data = {
       base_point: 0.1,
       base_turn: 3,
-      data_set: [100.3, 100.4, 100]
+      data_set: [100.3, 100.49, 99.99]
     }
     output_data = PointAndFigure.generate input_data
     assert_equal [[1, 100.3, 100.4], [2, 100.3, 100.2], [2, 100.2, 100.1], [2, 100.1, 100]], output_data[:data_set]
@@ -51,7 +51,7 @@ class PointAndFigureTest < Minitest::Test
     input_data = {
       base_point: 0.1,
       base_turn: 3,
-      data_set: [100.1, 100, 100.4]
+      data_set: [100.09, 99.99, 100.49]
     }
     output_data = PointAndFigure.generate input_data
     assert_equal [[1, 100.1, 100], [2, 100.1, 100.2], [2, 100.2, 100.3], [2, 100.3, 100.4]], output_data[:data_set]
@@ -81,7 +81,7 @@ class PointAndFigureTest < Minitest::Test
     input_data = {
       base_point: 0.1,
       base_turn: 3,
-      data_set: [100.3, 100.4, 100.1, 100]
+      data_set: [100.39, 100.4, 100.01, 100]
     }
     output_data = PointAndFigure.generate input_data
     assert_equal [[1, 100.3, 100.4], [2, 100.3, 100.2], [2, 100.2, 100.1], [2, 100.1, 100]], output_data[:data_set]
@@ -91,7 +91,7 @@ class PointAndFigureTest < Minitest::Test
     input_data = {
       base_point: 0.1,
       base_turn: 3,
-      data_set: [100.1, 100, 100.1, 100.4]
+      data_set: [100.09, 100, 100.1, 100.49]
     }
     output_data = PointAndFigure.generate input_data
     assert_equal [[1, 100.1, 100], [2, 100.1, 100.2], [2, 100.2, 100.3], [2, 100.3, 100.4]], output_data[:data_set]

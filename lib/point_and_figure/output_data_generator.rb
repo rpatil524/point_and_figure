@@ -32,7 +32,7 @@ module PointAndFigure
             next
           else
             # 高値の枠より基準枠以上価格が下がったか
-            if (@current_max - value.ceil(@round_unit)).round(@round_unit) / @base_point >= @base_turn
+            if ((@current_max - value.ceil(@round_unit)) / @base_point).round(@round_unit) > @base_turn
               @current_trend = :down
               @current_line += 1
               @current_min = value.ceil @round_unit
@@ -46,14 +46,13 @@ module PointAndFigure
         elsif down_trend?
           # 安値を1枠以上更新したか
           if (@current_min - value.ceil(@round_unit)).round(@round_unit) >= @base_point
-            #binding.pry
             generator = PointAndFigure::PointGenerator.new @base_point, value.ceil(@round_unit), @current_min, @current_line, @output_data
             @output_data = generator.generate trend: @current_trend
             @current_min = value.ceil @round_unit
             next
           else
             # 安値の枠より基準枠以上価格が上がったか
-            if (@current_min - value.floor(@round_unit)).round(@round_unit).abs / @base_point >= @base_turn
+            if ((value.floor(@round_unit) - @current_min) / @base_point).round(@round_unit) > @base_turn
               @current_trend = :up
               @current_line += 1
               @current_max = value.floor @round_unit

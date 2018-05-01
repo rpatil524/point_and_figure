@@ -7,7 +7,7 @@ module PointAndFigure
       @current_line = current_line
       @output_data = output_data
       @round_unit = PointAndFigure.calc_round_unit base_point
-      @flame = ((current_value - prev_value) / base_point).round(@round_unit).abs
+      @flame = ((current_value - prev_value) / base_point).round.abs
     end
 
     def generate(trend:, trend_changed: false)

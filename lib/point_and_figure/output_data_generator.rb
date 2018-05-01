@@ -32,7 +32,7 @@ module PointAndFigure
             next
           else
             # 高値の枠より基準枠以上価格が下がったか
-            if ((@current_max - value.ceil(@round_unit)) / @base_point).round(@round_unit) > @base_turn
+            if ((@current_max - value.ceil(@round_unit)) / @base_point).round > @base_turn
               @current_trend = :down
               @current_line += 1
               @current_min = value.ceil @round_unit
@@ -52,7 +52,7 @@ module PointAndFigure
             next
           else
             # 安値の枠より基準枠以上価格が上がったか
-            if ((value.floor(@round_unit) - @current_min) / @base_point).round(@round_unit) > @base_turn
+            if ((value.floor(@round_unit) - @current_min) / @base_point).round > @base_turn
               @current_trend = :up
               @current_line += 1
               @current_max = value.floor @round_unit

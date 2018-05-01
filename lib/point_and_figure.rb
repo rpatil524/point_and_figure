@@ -15,7 +15,12 @@ module PointAndFigure
     end
 
     def calc_round_unit(base_point)
-      (1 / base_point).to_i.to_s.size - 1
+      s = base_point.to_s
+      if s.is_a?(Integer)
+        1 - s.size
+      else
+        s.split('.')[1].size
+      end
     end
   end
 end
